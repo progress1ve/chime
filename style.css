@@ -1,0 +1,1116 @@
+:root {
+    --primary-color: #1a1a1a;
+    --accent-color: #00c853;
+    --text-color: #ffffff;
+    --secondary-text: rgba(255, 255, 255, 0.6);
+    --card-bg: rgba(28, 28, 28, 0.9);
+    --background-dark: #121212;
+    --background-medium: #212121;
+    --background-light: #282828;
+    --font-family: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 16px;
+    padding-bottom: 80px; /* Пространство для мини-плеера */
+    overflow-y: auto;
+}
+
+.screen {
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Навигация */
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--card-bg);
+    padding: 16px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav-item {
+    text-align: center;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.nav-item.active {
+    color: var(--accent-color);
+}
+
+/* Экран поиска */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 24px;
+    border: none;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    font-size: 16px;
+    outline: none;
+}
+
+.search-results {
+    margin-top: 20px;
+}
+
+.search-empty {
+    text-align: center;
+    color: var(--secondary-text);
+    margin-top: 32px;
+}
+
+/* Список треков */
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background-color: var(--background-light);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.track-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.track-cover {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    margin-right: 12px;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.track-info {
+    flex-grow: 1;
+}
+
+.track-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.track-artist {
+    color: var(--secondary-text);
+    font-size: 14px;
+}
+
+/* Стили для мини-плеера */
+.mini-player {
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    width: 100%;
+    background-color: var(--background-medium);
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    z-index: 90;
+    cursor: pointer;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mini-cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 12px;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.mini-info {
+    flex-grow: 1;
+}
+
+.mini-title {
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-artist {
+    color: var(--secondary-text);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-play-pause {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+    z-index: 95;
+    cursor: pointer;
+    position: relative;
+}
+
+.mini-play-pause i {
+    font-size: 16px;
+    color: var(--background-dark);
+}
+
+/* Стили для полноэкранного плеера */
+.fullscreen-player {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-dark);
+    z-index: 999;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.fullscreen-player.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.close-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.close-button i {
+    font-size: 20px;
+}
+
+.now-playing {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cover-art {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.cover-art div {
+    width: 75vw;
+    height: 75vw;
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 12px;
+    background-color: var(--primary-color);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.track-info-container {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.track-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.track-artist {
+    font-size: 18px;
+    color: var(--secondary-text);
+}
+
+.progress-container {
+    margin-bottom: 16px;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--secondary-text);
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    position: relative;
+    width: 0;
+}
+
+.progress-handle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.main-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev-button, .next-button, .play-button, .shuffle-button, .repeat-button, .like-button, .share-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 1000;
+}
+
+.prev-button i, .next-button i {
+    font-size: 24px;
+}
+
+.play-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin: 0 20px;
+}
+
+.play-button i {
+    font-size: 24px;
+    color: var(--background-dark);
+}
+
+.extra-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.extra-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.extra-control i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.extra-control-label {
+    font-size: 12px;
+    color: var(--secondary-text);
+}
+
+/* Стили для активных состояний кнопок */
+.shuffle-button.active, .repeat-button.active {
+    color: var(--primary-color);
+}
+
+/* Фиксы для z-index и интерактивности */
+.mini-play-pause,
+.close-button,
+.prev-button,
+.next-button,
+.play-button,
+.shuffle-button,
+.repeat-button,
+.like-button,
+.share-button,
+.progress-bar {
+    position: relative;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+/* Делаем все кнопки больше для лучшего UX на мобильных устройствах */
+.mini-play-pause,
+.close-button,
+.prev-button,
+.next-button,
+.shuffle-button,
+.repeat-button,
+.like-button,
+.share-button {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Добавляем визуальный эффект при нажатии на кнопки */
+.mini-play-pause:active,
+.close-button:active,
+.prev-button:active,
+.next-button:active,
+.play-button:active,
+.shuffle-button:active,
+.repeat-button:active,
+.like-button:active,
+.share-button:active {
+    transform: scale(0.95);
+}
+
+/* Увеличиваем область касания для прогресс-бара */
+.progress-bar {
+    margin: 10px 0;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    z-index: 1;
+}
+
+.progress {
+    height: 4px;
+    margin: 8px 0;
+}
+
+/* Основные стили */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+/* Заголовок */
+.header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.greeting {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.action-icons {
+    display: flex;
+    align-items: center;
+}
+
+.search-icon, .heart-icon {
+    margin-right: 16px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Категории */
+.category-tabs {
+    display: flex;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.tab.active {
+    color: var(--text-color);
+    position: relative;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-color);
+}
+
+/* Основной контент */
+.main-content {
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+/* Карточка недели */
+.curated-section {
+    margin-bottom: 30px;
+}
+
+.weekly-card {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.weekly-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: var(--text-color);
+}
+
+.weekly-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.weekly-card-text {
+    color: var(--secondary-text);
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.action-button.play-button {
+    background-color: var(--text-color);
+    color: #000000;
+}
+
+/* Плейлисты */
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.see-all-link {
+    color: var(--secondary-text);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.playlist {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.playlist-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.playlist-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.playlist-item-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 12px;
+    background-size: cover;
+    background-position: center;
+}
+
+.playlist-item-info {
+    flex: 1;
+}
+
+.playlist-item-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.playlist-item-artist {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Утилиты */
+.hidden {
+    display: none !important;
+}
+
+/* Экран поиска */
+.search-container {
+    padding: 10px 0;
+}
+
+.search-input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-icon-input {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text);
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+/* Плейлисты сетка */
+.playlists-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.playlist-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.playlist-card-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-position: center;
+}
+
+.playlist-card-info {
+    padding: 12px;
+}
+
+.playlist-card-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.playlist-card-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.create-playlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-playlist:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.create-playlist-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.create-playlist-button i {
+    font-size: 20px;
+}
+
+/* Профиль */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.settings-list {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.settings-item {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.settings-item:last-child {
+    border-bottom: none;
+}
+
+.settings-item i {
+    margin-right: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Результаты поиска */
+.search-empty, 
+.search-loading,
+.search-error {
+    padding: 20px;
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: rgba(40, 40, 40, 0.3);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.search-loading {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.search-loading:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--text-color);
+    border-radius: 50%;
+    bottom: 10px;
+    left: calc(50% - 15px);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.search-result-item {
+    margin-bottom: 8px;
+}
+
+/* Пустое состояние для списков */
+.empty-state {
+    padding: 20px;
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: rgba(40, 40, 40, 0.3);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Стили для элементов списка */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.all-link {
+    color: var(--accent-color);
+    font-size: 14px;
+}
+
+/* Стиль активного состояния для улучшения обратной связи */
+.control-button:active, 
+.mini-play-pause:active, 
+.nav-item:active, 
+.track-item:active,
+.close-button:active,
+.play-button:active,
+.shuffle-button:active,
+.prev-button:active,
+.next-button:active,
+.repeat-button:active,
+.like-button:active,
+.share-button:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.wave-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, transparent 0%, var(--accent-color) 0.5%, transparent 60%);
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.search-icon {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.main-wave {
+    text-align: center;
+    padding: 4rem 1rem;
+    position: relative;
+}
+
+.wave-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.wave-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    margin: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    margin-bottom: 1rem;
+}
+
+.cards-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.music-card {
+    background: var(--card-bg);
+    border-radius: 0.8rem;
+    padding: 1rem;
+    min-width: 200px;
+    cursor: pointer;
+}
+
+.music-card img {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.music-card-title {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.music-card-artist {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+}
+
+.player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-info {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.player-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.play-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+    color: var(--secondary-text);
+    text-align: center;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: var(--accent-color);
+}
+
+/* Устранение синего подсвечивания на мобильных устройствах */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+button, 
+.control-button, 
+.mini-play-pause, 
+.nav-item, 
+.track-item, 
+.close-button, 
+.search-input, 
+.progress-bar {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+/* Стиль активного состояния для улучшения обратной связи */
+.control-button:active, 
+.mini-play-pause:active, 
+.nav-item:active, 
+.track-item:active,
+.close-button:active,
+.play-button:active,
+.shuffle-button:active,
+.prev-button:active,
+.next-button:active,
+.repeat-button:active,
+.like-button:active,
+.share-button:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+} 
