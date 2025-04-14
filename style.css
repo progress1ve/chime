@@ -1,0 +1,3439 @@
+/* Звездный фон */
+html {
+    height: 100%;
+    background: #000000;
+    overflow: hidden;
+}
+
+/* Стили для звезд */
+#stars, #stars2, #stars3, #stars4, #stars5 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Используем символы для звезд */
+#stars:after, #stars2:after, #stars3:after, #stars4:after, #stars5:after {
+    content: "+";
+    position: absolute;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+}
+
+#stars {
+    font-size: 8px;
+}
+
+#stars:after {
+    text-shadow: 1744px 122px #FFF, 134px 1321px #FFF, 1882px 812px #FFF, 
+                622px 731px #FFF, 1689px 506px #FFF, 173px 1681px #FFF, 
+                1479px 923px #FFF, 564px 8px #FFF, 317px 1086px #FFF, 
+                26px 651px #FFF, 1126px 266px #FFF, 828px 494px #FFF;
+    animation: animStar 50s linear infinite, twinkleStars 5s ease-in-out infinite;
+}
+
+#stars2 {
+    font-size: 12px;
+}
+
+#stars2:after {
+    text-shadow: 1425px 376px #FFF, 511px 1265px #FFF, 1961px 591px #FFF, 
+                1330px 1705px #FFF, 1280px 1414px #FFF, 1729px 1936px #FFF, 
+                744px 334px #FFF, 1779px 1590px #FFF, 1848px 367px #FFF;
+    animation: animStar 100s linear infinite, twinkleStars 7s ease-in-out infinite alternate;
+    animation-delay: 0, 1s;
+}
+
+#stars3 {
+    font-size: 16px;
+}
+
+#stars3:after {
+    text-shadow: 387px 433px #FFF, 1613px 163px #FFF, 1721px 979px #FFF, 
+                586px 749px #FFF, 1322px 69px #FFF, 1414px 420px #FFF, 
+                766px 1422px #FFF, 1922px 522px #FFF, 318px 699px #FFF;
+    animation: animStar 150s linear infinite, twinkleStars 9s ease-in-out infinite;
+    animation-delay: 0, 2.5s;
+}
+
+#stars4 {
+    font-size: 20px;
+}
+
+#stars4:after {
+    text-shadow: 1187px 233px #FFF, 1411px 363px #FFF, 921px 979px #FFF, 
+                386px 849px #FFF, 322px 169px #FFF;
+    animation: animStar 200s linear infinite, twinkleStars 8s ease-in-out infinite alternate;
+    animation-delay: 0, 1.2s;
+}
+
+#stars5 {
+    font-size: 24px;
+}
+
+#stars5:after {
+    text-shadow: 787px 633px #FFF, 1213px 263px #FFF, 521px 579px #FFF, 
+                886px 449px #FFF, 822px 269px #FFF;
+    animation: animStar 250s linear infinite, twinkleStars 10s ease-in-out infinite;
+    animation-delay: 0, 3s;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-2000px);
+    }
+}
+
+@keyframes twinkleStars {
+    0%, 100% {
+        opacity: 0.6;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+    }
+    50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+    }
+}
+
+/* Стили для ярких звезд */
+.bright-star {
+    position: fixed;
+    font-size: 25px;
+    color: #ffffff;
+    z-index: -1;
+    opacity: 0.9;
+    animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Эффект свечения для текста */
+.glow-text {
+    text-shadow: none;
+}
+
+@keyframes pulsate {
+    0%, 100% {
+        text-shadow: none;
+    }
+}
+
+/* Добавление мерцания для звезд */
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+:root {
+    --primary-color: #1a1a1a;
+    --accent-color: #00c853;
+    --text-color: #ffffff;
+    --secondary-text: rgba(255, 255, 255, 0.6);
+    --card-bg: rgba(28, 28, 28, 0.9);
+    --background-dark: #121212;
+    --background-medium: #212121;
+    --background-light: #282828;
+    --font-family: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+body {
+    background-color: transparent;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 16px;
+    padding-bottom: 80px; /* Пространство для мини-плеера */
+    overflow-y: auto;
+    background-color: transparent;
+}
+
+.screen {
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Навигация */
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(17, 17, 17, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 16px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+    text-align: center;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.nav-item.active {
+    color: var(--accent-color);
+}
+
+/* Экран поиска */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 24px;
+    border: none;
+    background-color: rgba(40, 40, 40, 0.6);
+    backdrop-filter: blur(5px);
+    color: var(--text-color);
+    font-size: 16px;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.search-results {
+    margin-top: 20px;
+}
+
+.search-empty {
+    text-align: center;
+    color: var(--secondary-text);
+    margin-top: 32px;
+}
+
+/* Список треков */
+.tracks-list {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.track-item {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background-color: rgba(40, 40, 40, 0.7);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 12px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 576px) {
+    .track-item {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .track-item {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .track-item {
+        max-width: 800px;
+    }
+}
+
+.track-item:hover {
+    background-color: rgba(60, 60, 60, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.track-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 14px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.track-item:hover .track-cover {
+    transform: scale(1.05);
+}
+
+.track-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.track-item:hover .track-cover img {
+    transform: scale(1.1);
+}
+
+.track-item .track-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 50px; /* Отступ для кнопки действий */
+}
+
+.track-item .track-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    text-align: left;
+    line-height: 1.2;
+    max-width: 100%;
+}
+
+.track-item .track-artist {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    line-height: 1.2;
+    max-width: 100%;
+}
+
+.track-item .track-actions {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.track-item:hover .track-actions {
+    opacity: 1;
+}
+
+.track-item .track-actions:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.track-item .track-actions i {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Стили для мини-плеера */
+.mini-player {
+    margin-left: auto;
+    margin-right: auto;
+    width: 94%;
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    background-color: #161716;
+    padding: 0; /* Убираем вертикальные отступы, чтобы полоса прогресса была вплотную к верху */
+    z-index: 0;
+    cursor: pointer;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column; /* Добавляем вертикальную ориентацию для полоски прогресса сверху */
+    border-radius: 20px;
+}
+
+/* Стили для линии прогресса в мини-плеере */
+.mini-player-progress {
+    margin-top: 0,2px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 92%;
+    border-radius: 50px;
+    height: 2px; /* Тонкая линия */
+    background-color: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.mini-progress-bar {
+    margin-top: 0,2px;
+    border-radius: 50px;
+    height: 100%;
+    background-color: #fff; /* Белая полоса прогресса */
+    width: 0; /* Начальная ширина */
+    transition: width 0.1s linear; /* Плавная анимация изменения ширины */
+}
+
+.mini-player-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px 12px; /* Уменьшаем вертикальные отступы */
+}
+
+.mini-cover {
+    width: 36px; /* Уменьшаем размер обложки */
+    height: 36px;
+    border-radius: 6px;
+    margin-right: 10px; /* Немного уменьшаем правый отступ */
+    background-color: #333;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.mini-info {
+    flex: 1;
+    min-width: 0;
+    margin-right: 8px;
+    overflow: hidden;
+    width: calc(100% - 80px); /* Учитываем ширину кнопки воспроизведения и отступы */
+}
+
+.mini-title {
+    font-weight: 700;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1px;
+    max-width: 100%;
+    display: block;
+}
+
+.mini-artist {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    max-width: 100%;
+    display: block;
+}
+
+.mini-play-pause {
+    all: unset;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    cursor: pointer;
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+}
+
+.mini-play-pause * {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.mini-play-pause i {
+    font-size: 18px;
+    color: #fff;
+    background: none !important;
+    text-shadow: none !important;
+}
+
+.mini-play-pause:hover,
+.mini-play-pause:focus,
+.mini-play-pause:active {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* Стили для полноэкранного плеера */
+.fullscreen-player {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    z-index: 20;
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    padding: 40px 24px;
+    box-shadow: none;
+}
+
+.fullscreen-player.active {
+    display: flex;
+}
+
+/* Правила для удаления text-shadow у заголовков и текстов в плеере */
+.fullscreen-player h2.track-title {
+    text-shadow: none;
+}
+
+.fullscreen-player h3.track-artist {
+    text-shadow: none;
+}
+
+.fullscreen-player .player-header-title {
+    text-shadow: none;
+}
+
+.fullscreen-player .time-display {
+    text-shadow: none;
+}
+
+.fullscreen-player .control-button i {
+    text-shadow: none;
+}
+
+/* Добавляем эффект для отображения звёзд на фоне */
+.fullscreen-player::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 200px 200px, 150px 150px, 300px 300px, 250px 250px;
+    background-position: 0 0, 50px 50px, 100px 100px, 25px 25px;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.close-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.close-button:active {
+    transform: scale(0.95);
+}
+
+.player-header-title {
+    display: none;
+}
+
+/* Обложка трека с тенью */
+.cover-art {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 30px;
+    padding: 0;
+}
+
+.cover-art div {
+    width: 280px;
+    height: 280px;
+    max-width: 80vw;
+    max-height: 80vw;
+    aspect-ratio: 1/1;
+    border-radius: 16px;
+    box-shadow: none;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+}
+
+.cover-art div:hover {
+    transform: translateZ(0) scale(1.03);
+    box-shadow: none;
+}
+
+.cover-art div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* Информация о треке */
+.fullscreen-player .track-info {
+    text-align: center;
+    margin: 0 auto 30px;
+    width: 85%;
+    max-height: none;
+    overflow: visible;
+}
+
+.fullscreen-player .track-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    color: white;
+    display: block;
+    text-align: center;
+    visibility: visible;
+    text-shadow: none;
+}
+
+.fullscreen-player .track-artist {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    visibility: visible;
+    text-shadow: none;
+}
+
+/* Контейнер для элементов управления */
+.player-controls-container {
+    margin-top: auto;
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+/* Прогресс-бар */
+.progress-container {
+    margin: 20px 0 40px;
+    padding: 0;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+}
+
+.progress {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 0;
+    position: relative;
+    box-shadow: none;
+}
+
+.progress-handle {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    margin-left: -6px;
+    box-shadow: none;
+}
+
+/* Контролы плеера */
+.player-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.player-controls .control-button:nth-child(1),
+.player-controls .control-button:nth-child(5) {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.player-controls .control-button:nth-child(2),
+.player-controls .control-button:nth-child(4) {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.control-button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+.control-button.play-button {
+    width: 64px;
+    height: 64px;
+    background-color: #fff !important;
+    color: #000;
+    border-radius: 50%;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.control-button i {
+    font-size: 20px;
+}
+
+.control-button.play-button i {
+    font-size: 24px;
+}
+
+.fullscreen-player .control-button.play-button:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+}
+
+.fullscreen-player .control-button.play-button:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+/* Дополнительные контролы */
+.extra-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin-top: 40px;
+}
+
+.control-button.small {
+    color: rgba(255, 255, 255, 0.6);
+    width: 40px;
+    height: 40px;
+}
+
+.control-button.small i {
+    font-size: 18px;
+}
+
+/* Активные состояния для кнопок, например лайк */
+.control-button.like-button.active i,
+.control-button.shuffle-button.active i,
+.control-button.repeat-button.active i {
+    color: #ff375f;
+    text-shadow: none;
+}
+
+/* Основные стили */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+/* Заголовок */
+.header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.greeting {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.action-icons {
+    display: flex;
+    align-items: center;
+}
+
+.search-icon, .heart-icon {
+    margin-right: 16px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Категории */
+.category-tabs {
+    display: flex;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.tab.active {
+    color: var(--text-color);
+    position: relative;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-color);
+}
+
+/* Основной контент */
+.main-content {
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Карточка недели */
+.curated-section {
+    margin-bottom: 30px;
+}
+
+.weekly-card {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.weekly-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: var(--text-color);
+}
+
+.weekly-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.weekly-card-text {
+    color: var(--secondary-text);
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.action-button.play-button {
+    background-color: var(--text-color);
+    color: #000000;
+}
+
+/* Плейлисты */
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.see-all-link {
+    color: var(--secondary-text);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.playlist {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.playlist-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.playlist-item {
+    background-color: rgba(40, 40, 40, 0.7);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.playlist-cover {
+    position: relative;
+    aspect-ratio: 1/1;
+    width: 100%;
+    overflow: hidden;
+}
+
+.playlist-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playlist-info {
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.playlist-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.playlist-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Утилиты */
+.hidden {
+    display: none !important;
+}
+
+/* Экран поиска */
+.search-container {
+    padding: 10px 0;
+}
+
+.search-input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-icon-input {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text);
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+/* Плейлисты сетка */
+.playlists-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.playlist-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.playlist-card-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-position: center;
+}
+
+.playlist-card-info {
+    padding: 12px;
+}
+
+.playlist-card-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.playlist-card-count {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.create-playlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-playlist:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.create-playlist-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.create-playlist-button i {
+    font-size: 20px;
+}
+
+/* Профиль */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.settings-list {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.settings-item {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.settings-item:last-child {
+    border-bottom: none;
+}
+
+.settings-item i {
+    margin-right: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Результаты поиска */
+.search-empty, 
+.search-loading,
+.search-error {
+    padding: 20px;
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: rgba(40, 40, 40, 0.3);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.search-loading {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.search-loading:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--text-color);
+    border-radius: 50%;
+    bottom: 10px;
+    left: calc(50% - 15px);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.search-result-item {
+    margin-bottom: 8px;
+}
+
+/* Пустое состояние для списков */
+.empty-state {
+    padding: 20px;
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: rgba(40, 40, 40, 0.3);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Стили для элементов списка */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.all-link {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Стиль активного состояния для улучшения обратной связи */
+.control-button:active, 
+.mini-play-pause:active, 
+.nav-item:active, 
+.track-item:active,
+.close-button:active,
+.play-button:active,
+.shuffle-button:active,
+.prev-button:active,
+.next-button:active,
+.repeat-button:active,
+.like-button:active,
+.share-button:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.wave-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, transparent 0%, var(--accent-color) 0.5%, transparent 60%);
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.search-icon {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.main-wave {
+    text-align: center;
+    padding: 4rem 1rem;
+    position: relative;
+}
+
+.wave-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.wave-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    margin: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    margin-bottom: 1rem;
+}
+
+.cards-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.music-card {
+    background: var(--card-bg);
+    border-radius: 0.8rem;
+    padding: 1rem;
+    min-width: 200px;
+    cursor: pointer;
+}
+
+.music-card img {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.music-card-title {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.music-card-artist {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-info {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.player-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.play-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+    color: var(--secondary-text);
+    text-align: center;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: var(--accent-color);
+}
+
+/* Устранение синего подсвечивания на мобильных устройствах */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+button, 
+.control-button, 
+.mini-play-pause, 
+.nav-item, 
+.track-item, 
+.close-button, 
+.search-input, 
+.progress-bar {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+/* Стиль активного состояния для улучшения обратной связи */
+.control-button:active, 
+.mini-play-pause:active, 
+.nav-item:active, 
+.track-item:active,
+.close-button:active,
+.play-button:active,
+.shuffle-button:active,
+.prev-button:active,
+.next-button:active,
+.repeat-button:active,
+.like-button:active,
+.share-button:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* Улучшенные стили для кнопок и элементов управления */
+.control-button, .mini-play-pause, .play-button {
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.control-button:hover, .mini-play-pause:hover, .play-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.play-button, .mini-play-pause {
+    background: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-item.active {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    transition: transform 0.2s;
+}
+
+.nav-item:hover i {
+    transform: translateY(-2px);
+}
+
+.progress-bar {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.progress {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.progress-handle {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Добавление звездной пыли на фоне плеера */
+.fullscreen-player:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: none;
+    z-index: -1;
+}
+
+/* Кнопка воспроизведения в полноэкранном плеере */
+.fullscreen-player .play-button {
+    width: 64px;
+    height: 64px;
+    background-color: #fff !important;
+    color: #000;
+    border-radius: 50%;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.fullscreen-player .play-button:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+}
+
+.fullscreen-player .play-button:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+/* Прогресс бар с улучшенным стилем */
+.fullscreen-player .progress-bar {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+}
+
+.fullscreen-player .progress {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 0;
+    position: relative;
+    box-shadow: none;
+}
+
+.fullscreen-player .progress-handle {
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    margin-left: -7px;
+    box-shadow: none;
+    transition: transform 0.1s ease;
+}
+
+/* Убираем анимацию перехода между цветами */
+.fullscreen-player.color-transition {
+    animation: none;
+}
+
+@keyframes color-pulse {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1); }
+    100% { filter: brightness(1); }
+}
+
+/* Стили перенесенные из HTML-файла */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    padding-bottom: 80px;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: rgba(40, 40, 40, 0.7);
+    cursor: pointer;
+    position: relative;
+}
+
+.track-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 12px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    font-size: 12px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 10px;
+    z-index: 10;
+    background-image: url('background.jpg');
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.nav-item.active {
+    color: #fff;
+}
+
+.fullscreen-player {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    z-index: 20;
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    padding: 40px 24px;
+    box-shadow: none;
+}
+
+.fullscreen-player.active {
+    display: flex;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.all-link {
+    color: #1DB954;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Стили для уведомлений */
+.audio-notification {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+/* Стили для загрузки */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.loading:after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+/* Дополнительные стили для полноэкранного плеера */
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.player-header-title {
+    flex: 1;
+    text-align: center;
+}
+
+.close-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.cover-art {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.cover-art div {
+    width: 280px;
+    height: 280px;
+    background-color: #333;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-art div i {
+    font-size: 80px;
+    opacity: 0.5;
+}
+
+.progress-container {
+    margin: 30px 0;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.player-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.control-button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.control-button.play-button {
+    width: 64px;
+    height: 64px;
+    background-color: #fff !important;
+    color: #000;
+    border-radius: 50%;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.control-button.play-button:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+}
+
+.control-button.play-button:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+.extra-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.control-button.small {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+}
+
+/* Дополнительные стили для интерфейса */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile-avatar div {
+    width: 100px;
+    height: 100px;
+    background-color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar div i {
+    font-size: 40px;
+}
+
+.mini-play-pause {
+    margin-left: auto;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Стили для иконок музыкальной ноты, поиска, библиотеки и профиля в навигации */
+.home-icon-filled, .home-icon-outline,
+.search-icon-filled, .search-icon-outline,
+.library-icon-filled, .library-icon-outline,
+.profile-icon-filled, .profile-icon-outline {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    transition: opacity 0.3s ease;
+}
+
+.home-icon-filled,
+.search-icon-filled,
+.library-icon-filled,
+.profile-icon-filled {
+    opacity: 0;
+}
+
+.home-icon-outline,
+.search-icon-outline,
+.library-icon-outline,
+.profile-icon-outline {
+    opacity: 1;
+}
+
+.nav-item.active .home-icon-filled,
+.nav-item.active .search-icon-filled,
+.nav-item.active .library-icon-filled,
+.nav-item.active .profile-icon-filled {
+    opacity: 1;
+}
+
+.nav-item.active .home-icon-outline,
+.nav-item.active .search-icon-outline,
+.nav-item.active .library-icon-outline,
+.nav-item.active .profile-icon-outline {
+    opacity: 0;
+}
+
+/* Позиционирование для иконок в навигации */
+.nav-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.nav-item.active {
+    color: #fff;
+}
+
+/* Стили для списка треков */
+.track-item .track-info {
+    flex: 1;
+    min-width: 0;
+    width: calc(100% - 60px);
+    overflow: hidden;
+    text-align: left;
+}
+
+.track-item .track-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+    text-align: left;
+}
+
+.track-item .track-artist {
+    color: var(--secondary-text);
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+    text-align: left;
+}
+
+/* Кнопка воспроизведения в полноэкранном плеере */
+.fullscreen-player .play-button {
+    width: 64px;
+    height: 64px;
+    background-color: #fff !important;
+    color: #000;
+    border-radius: 50%;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.fullscreen-player .play-button:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+}
+
+.fullscreen-player .play-button:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+/* Стили для кнопок управления */
+.fullscreen-player .control-button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.fullscreen-player .control-button:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.fullscreen-player .control-button:active {
+    transform: scale(0.95);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Прогресс бар с улучшенным стилем */
+.fullscreen-player .progress-bar {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+}
+
+.fullscreen-player .progress {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 0;
+    position: relative;
+    box-shadow: none;
+}
+
+.fullscreen-player .progress-handle {
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    margin-left: -7px;
+    box-shadow: none;
+    transition: transform 0.1s ease;
+}
+
+.fullscreen-player .progress-handle:hover {
+    transform: translateY(-50%) scale(1.2);
+}
+
+/* Стили для активных кнопок */
+.fullscreen-player .control-button.like-button.active i {
+    color: #ff375f;
+    text-shadow: none;
+}
+
+.fullscreen-player .control-button.shuffle-button.active i,
+.fullscreen-player .control-button.repeat-button.active i {
+    color: #1DB954;
+    text-shadow: none;
+}
+
+/* Добавляем класс для анимации перехода между цветами */
+.fullscreen-player.color-transition {
+    animation: none;
+}
+
+@keyframes color-pulse {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1); }
+    100% { filter: brightness(1); }
+}
+
+/* Стили вкладок в медиатеке */
+.library-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: none;
+    gap: 16px;
+    padding: 0 4px;
+}
+
+.library-tab {
+    padding: 0px 4px 12px 4px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 700;
+    font-size: 16px;
+    position: relative;
+    transition: color 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.library-tab.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.library-tab-content {
+    display: none;
+}
+
+.library-tab-content.active {
+    display: block;
+}
+
+/* Стили для плейлистов */
+.playlists-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.playlist-item, .create-playlist {
+    position: relative;
+    background-color: rgba(40, 40, 40, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s;
+    height: 160px;
+    width: 100%;
+}
+
+.playlist-cover {
+    position: relative;
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+    background-color: #232323;
+}
+
+.playlist-info {
+    padding: 0.5rem;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(30, 30, 30, 0.7);
+}
+
+.playlist-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-count {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tracks-count-overlay {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+/* Исправление для кнопки создания плейлиста */
+.create-playlist {
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(40, 40, 40, 0.6);
+    padding: 1rem;
+}
+
+.create-playlist-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #1DB954;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.create-playlist-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Исправление для экрана плейлиста */
+.playlist-detail-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.playlist-play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1DB954;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.playlist-delete-button, 
+.playlist-edit-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(60, 60, 60, 0.6);
+    border: none;
+    color: white;
+}
+
+/* Исправление для обложки плейлиста на странице деталей */
+.playlist-detail-cover {
+    width: 100px;
+    height: 100px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.playlist-cover-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-cover-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Стили для экрана библиотеки */
+.library-screen {
+    padding-bottom: 100px;
+}
+
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.library-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.library-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.profile-button, 
+.settings-button, 
+.search-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.profile-button:hover, 
+.settings-button:hover, 
+.search-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.wave-banner {
+    background: linear-gradient(135deg, #1DB954, #3C78C9);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.wave-banner:hover {
+    transform: translateY(-2px);
+}
+
+.play-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+}
+
+.play-icon i {
+    color: #1DB954;
+    font-size: 18px;
+    margin-left: 2px; /* Небольшое смещение для центрирования иконки */
+}
+
+.banner-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.wave-subtitle {
+    margin-bottom: 24px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+.color-accent {
+    color: #1DB954;
+    font-weight: 600;
+}
+
+/* Стили для вкладок и контента в библиотеке */
+.liked-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.liked-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+}
+
+.liked-icon i {
+    color: #ff375f;
+    font-size: 20px;
+}
+
+.liked-info {
+    flex: 1;
+}
+
+.liked-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.liked-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+/* Стили для экрана детального просмотра плейлиста */
+.playlist-detail-screen {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.playlist-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.playlist-detail-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #fff;
+    flex: 1;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+.playlist-info-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.playlist-detail-cover {
+    width: 100px;
+    height: 100px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+}
+
+.playlist-cover-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    color: #fff;
+    font-size: 42px;
+}
+
+.playlist-cover-image i {
+    font-size: 60px;
+    opacity: 0.8;
+}
+
+.playlist-detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.playlist-detail-count {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+}
+
+.playlist-detail-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.playlist-play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1DB954;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    width: 100%;
+    margin-bottom: 0.8rem;
+}
+
+.playlist-delete-button, 
+.playlist-edit-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(60, 60, 60, 0.6);
+    border: none;
+    color: white;
+    transition: all 0.2s;
+}
+
+.playlist-delete-button:hover,
+.playlist-edit-button:hover {
+    background-color: rgba(80, 80, 80, 0.8);
+}
+
+.playlist-tracks-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Контекстное меню треков */
+.track-context-menu {
+    position: fixed;
+    display: none;
+    z-index: 1000;
+    width: 240px;
+    background-color: #262626;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.track-context-menu.show {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.track-context-menu .list-group-item {
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.track-context-menu .list-group-item:last-child {
+    border-bottom: none;
+}
+
+.track-context-menu .list-group-item:hover,
+.track-context-menu .list-group-item:active {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.track-context-menu .list-group-item i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.track-context-menu .hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Исправления для экрана коллекции */
+.library-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.library-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.profile-button, 
+.settings-button, 
+.search-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(40, 40, 40, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+/* Улучшение баннера "Моя волна" */
+.wave-banner {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgb(30, 160, 90), rgb(40, 120, 160));
+}
+
+.play-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.banner-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+}
+
+/* Улучшение вкладок библиотеки */
+.library-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.library-tab {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    opacity: 0.7;
+    position: relative;
+    cursor: pointer;
+}
+
+.library-tab.active {
+    opacity: 1;
+    border-bottom: 2px solid #1DB954;
+}
+
+/* Улучшение элемента "Создать плейлист" */
+.create-playlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(40, 40, 40, 0.6);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.create-playlist-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #1DB954;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.create-playlist-icon i {
+    font-size: 24px;
+    color: black;
+}
+
+/* Исправления для экрана плейлиста */
+.playlist-detail-screen {
+    padding-bottom: 5rem;
+}
+
+.playlist-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.back-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(40, 40, 40, 0.7);
+    margin-right: 1rem;
+}
+
+.playlist-detail-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.playlist-info-container {
+    display: flex;
+    align-items: flex-start;
+
+}
+
+.playlist-detail-cover {
+    width: 120px;
+    height: 120px;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+}
+
+.playlist-cover-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-cover-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.playlist-detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.playlist-detail-count {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.playlist-detail-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.playlist-play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1DB954;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.playlist-play-button:hover {
+    background-color: #1ed760;
+    transform: scale(1.02);
+}
+
+.playlist-play-button i {
+    margin-right: 0.5rem;
+}
+
+.playlist-delete-button, 
+.playlist-edit-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(60, 60, 60, 0.6);
+    border: none;
+    color: white;
+    transition: all 0.2s;
+}
+
+.playlist-delete-button:hover,
+.playlist-edit-button:hover {
+    background-color: rgba(80, 80, 80, 0.8);
+}
+
+/* Единые стили для треков в любимых и плейлистах */
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    background-color: rgba(40, 40, 40, 0.4);
+    transition: background-color 0.2s;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.track-item:hover {
+    background-color: rgba(60, 60, 60, 0.6);
+}
+
+.track-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    margin-right: 1rem;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.track-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.track-title {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-artist {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Стили для модального окна */
+.modal-content {
+    background-color: #212121 !important;
+    border-radius: 12px !important;
+}
+
+.modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.modal-footer {
+    border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.btn-primary {
+    background-color: #1DB954 !important;
+    border-color: #1DB954 !important;
+    color: #000 !important;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #1ed760 !important;
+    border-color: #1ed760 !important;
+}
+
+/* Дополнительные медиа-запросы для адаптивности */
+@media (max-width: 576px) {
+    .playlist-play-button {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        white-space: nowrap;
+    }
+    
+    .playlist-detail-cover {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .playlist-detail-actions {
+        gap: 0.5rem;
+    }
+    
+    .playlist-delete-button, 
+    .playlist-edit-button {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* Улучшенное отображение кнопок редактирования и удаления */
+.edit-delete-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+/* Дополнительные стили для мобильных устройств */
+@media (max-width: 576px) {
+    /* Корректировка размера шрифта заголовков */
+    .section-title, h2 {
+        font-size: 1.3rem;
+    }
+    
+    /* Исправление отображения плейлистов на экране плейлистов */
+    .playlist-detail-screen {
+        padding: 0.5rem;
+    }
+    
+    .playlist-detail-title {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70%;
+    }
+    
+    /* Улучшенное отображение треков на мобильных устройствах */
+    .track-title {
+        font-size: 0.9rem;
+    }
+    
+    .track-artist {
+        font-size: 0.8rem;
+    }
+    
+    .track-cover {
+        width: 45px;
+        height: 45px;
+        margin-right: 0.8rem;
+    }
+    
+    .track-item {
+        padding: 0.6rem;
+    }
+    
+    /* Уменьшение отступов контейнеров */
+    .content {
+        padding: 0.8rem;
+    }
+    
+    .section {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Улучшение полноэкранного плеера для мобильных устройств */
+    .fullscreen-player .track-title {
+        font-size: 1.2rem;
+    }
+    
+    .fullscreen-player .track-artist {
+        font-size: 0.9rem;
+    }
+}
+
+/* Стили для очень маленьких экранов */
+@media (max-width: 320px) {
+    .playlist-detail-cover {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .track-cover {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .track-title {
+        font-size: 0.8rem;
+    }
+    
+    .track-artist {
+        font-size: 0.7rem;
+    }
+    
+    .playlist-play-button {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+} 
+
+/* Улучшенные стили для отображения плейлистов в мобильном режиме */
+@media (max-width: 576px) {
+    /* Изменение сетки плейлистов */
+    .playlists-container {
+        gap: 10px;
+        margin-bottom: 1rem;
+    }
+    
+    /* Корректировка размеров для мобильных устройств */
+    .playlist-item, .create-playlist {
+        height: 140px;
+        margin-bottom: 0;
+    }
+    
+    /* Корректировка размеров обложки плейлиста */
+    .playlist-cover {
+        height: 70%;
+    }
+    
+    .playlist-info {
+        height: 30%;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    /* Стиль для кнопки создания плейлиста */
+    .create-playlist {
+        background-color: rgba(50, 50, 50, 0.6);
+    }
+    
+    .create-playlist-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .create-playlist-text {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Исправления для страницы плейлиста */
+    .playlist-detail-screen {
+        padding: 0.5rem;
+    }
+    
+    .playlist-detail-title {
+        font-size: 1.1rem;
+        max-width: 80%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .playlist-detail-count {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* Улучшенное отображение кнопок управления плейлистом */
+    .edit-delete-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+    }
+    
+    .playlist-delete-button, 
+    .playlist-edit-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Улучшение кнопки воспроизведения */
+    .playlist-play-button {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+} 
+
+/* Улучшение для отображения кнопки "Воспроизвести все" и обложки плейлиста */
+.playlist-info-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.playlist-detail-cover {
+    width: 140px;
+    height: 140px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+}
+
+.playlist-play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1DB954;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    width: auto;
+    max-width: 220px;
+    margin-top: 1rem;
+}
+
+/* Стили для кнопок редактирования и удаления в верхней части */
+.playlist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.playlist-header-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.playlist-delete-button, 
+.playlist-edit-button {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(60, 60, 60, 0.6);
+    border: none;
+    color: white;
+    transition: all 0.2s;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 576px) {
+    .playlist-detail-cover {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .playlist-play-button {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        max-width: 180px;
+    }
+    
+    .playlist-delete-button, 
+    .playlist-edit-button {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Стили для очень маленьких экранов */
+@media (max-width: 320px) {
+    .playlist-detail-cover {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .playlist-play-button {
+        max-width: 160px;
+        font-size: 0.75rem;
+    }
+} 
+
+/* Дополнительные стили для заголовка плейлиста */
+.playlist-header {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 0;
+    margin-bottom: 1.2rem;
+}
+
+.back-button {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(40, 40, 40, 0.7);
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.playlist-detail-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-header-buttons {
+    display: flex;
+    gap: 0.6rem;
+    margin-left: 1rem;
+}
+
+/* Улучшения для мобильных устройств */
+@media (max-width: 576px) {
+    .playlist-header {
+        padding: 0.6rem 0;
+        margin-bottom: 1rem;
+    }
+    
+    .back-button {
+        width: 34px;
+        height: 34px;
+        margin-right: 0.7rem;
+    }
+    
+    .playlist-detail-title {
+        font-size: 1.2rem;
+    }
+    
+    .playlist-header-buttons {
+        gap: 0.4rem;
+        margin-left: 0.5rem;
+    }
+    
+    .playlist-detail-cover {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .playlist-detail-count {
+        font-size: 0.8rem;
+        margin-bottom: 0.7rem;
+    }
+    
+    .playlist-play-button {
+        margin-top: 0.5rem;
+    }
+}
+
+/* Для маленьких экранов */
+@media (max-width: 320px) {
+    .playlist-detail-title {
+        font-size: 1rem;
+        max-width: 120px;
+    }
+    
+    .playlist-header-buttons {
+        margin-left: 0.3rem;
+    }
+    
+    .playlist-delete-button, 
+    .playlist-edit-button {
+        width: 30px;
+        height: 30px;
+    }
+} 
+
+/* Увеличение размера обложки плейлиста и сдвиг вправо */
+.playlist-info-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    position: relative;
+    justify-content: center;
+}
+
+.playlist-detail-cover {
+    width: 160px;
+    height: 160px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.playlist-detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 0.5rem;
+}
+
+/* Стили для кнопки воспроизведения с анимированным микрофоном */
+.playlist-play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1DB954;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    width: auto;
+    max-width: 220px;
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.playlist-play-button:hover {
+    background-color: #1ed760;
+    transform: scale(1.02);
+}
+
+/* Стили для иконки микрофона с анимацией */
+.mic-icon {
+    margin-right: 0.5rem;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+/* Удаляем старую анимацию пульсации, так как теперь будем использовать Lottie */
+/* @keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+} */
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 576px) {
+    .playlist-detail-cover {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .playlist-detail-info {
+        padding-left: 0.3rem;
+    }
+    
+    .playlist-play-button {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        max-width: 180px;
+    }
+}
+
+/* Для маленьких экранов */
+@media (max-width: 320px) {
+    .playlist-detail-cover {
+        width: 100px;
+        height: 100px;
+    }
+} 
+
+/* Убираем все эффекты свечения в полноэкранном плеере */
+.fullscreen-player .control-button:hover, 
+.fullscreen-player .mini-play-pause:hover, 
+.fullscreen-player .play-button:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.fullscreen-player .control-button:active, 
+.fullscreen-player .mini-play-pause:active, 
+.fullscreen-player .nav-item:active, 
+.fullscreen-player .play-button:active,
+.fullscreen-player .shuffle-button:active,
+.fullscreen-player .prev-button:active,
+.fullscreen-player .next-button:active,
+.fullscreen-player .repeat-button:active,
+.fullscreen-player .like-button:active,
+.fullscreen-player .share-button:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.fullscreen-player .progress-bar {
+    box-shadow: none;
+}
+
+.fullscreen-player .progress {
+    box-shadow: none;
+}
+
+.fullscreen-player .progress-handle {
+    box-shadow: none;
+}
+
+.fullscreen-player .progress-handle:hover {
+    box-shadow: none;
+}
+
+.fullscreen-player .cover-art div {
+    box-shadow: none;
+}
+
+.fullscreen-player .cover-art div:hover {
+    transform: translateZ(0);
+    box-shadow: none;
+}
+
+.fullscreen-player * {
+    text-shadow: none !important;
+}

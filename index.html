@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chime Player</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Предзагрузка изображения звезды для улучшения производительности -->
+    <link rel="preload" href="https://img.icons8.com/?size=100&id=62888&format=png&color=000000" as="image">
+    <!-- Lottie Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+    <style>
+        /* ... existing code ... */
+        
+        #mic-animation {
+            width: 32px;
+            height: 32px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        #mic-animation.loading {
+            position: relative;
+        }
+        
+        #mic-animation.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+        
+        #mic-animation.fallback-icon {
+            font-size: 20px;
+            color: #fff;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .playlist-play-button {
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            padding: 8px 20px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+        }
+        
+        .playlist-play-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+        }
+        
+        .playlist-play-button:active {
+            transform: translateY(1px);
+        }
+        
+        /* ... existing code ... */
+    </style>
+</head>
+<body>
+    <!-- Звездный фон -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    <div id="stars4"></div>
+    <div id="stars5"></div>
+    
+    <div class="app-container">
+        <!-- Главный экран -->
+        <div class="content home-screen" id="homeScreen">
+            <h1 class="glow-text">chime</h1>
+            
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Треки</div>
+                    <div class="all-link glow-text">Все</div>
+                </div>
+                
+                <div class="tracks-list">
+                    <!-- Треки будут добавлены через JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Экран поиска -->
+        <div class="content search-screen hidden" id="searchScreen">
+            <div class="search-container">
+                <div class="search-input-container">
+                    <input type="text" class="search-input" placeholder="Поиск треков...">
+                    <i class="fas fa-search search-icon-input"></i>
+                </div>
+                <div class="search-results">
+                    <!-- Результаты поиска будут здесь -->
+                    <div class="search-empty">Введите запрос для поиска</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Экран медиатеки -->
+        <div class="content library-screen hidden" id="libraryScreen">
+            <div class="library-header">
+                <h1>Коллекция</h1>
+                <div class="library-actions">
+                    <div class="profile-button">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="settings-button">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="search-button">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Баннер Моя волна -->
+            <div class="wave-banner">
+                <div class="play-icon">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="banner-text">Моя волна</div>
+            </div>
+            <div class="wave-subtitle">У вашей музыки есть <span class="color-accent">цвет</span></div>
+            
+            <!-- Вкладки медиатеки -->
+            <div class="library-tabs">
+                <div class="library-tab active" data-tab="liked">Мне нравится</div>
+                <div class="library-tab" data-tab="playlists">Плейлисты</div>
+            </div>
+            
+            <!-- Контейнер для любимых треков -->
+            <div class="library-tab-content active" id="liked-content">
+                <div class="liked-header">
+                    <div class="liked-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="liked-info">
+                        <h2 class="liked-title">Мне нравится</h2>
+                        <div class="liked-count">0 треков</div>
+                    </div>
+                </div>
+                <div class="liked-tracks-container">
+                    <!-- Любимые треки будут добавлены сюда через JavaScript -->
+                </div>
+                <div class="empty-state" id="liked-empty">У вас пока нет любимых треков</div>
+            </div>
+            
+            <!-- Контейнер для плейлистов -->
+            <div class="library-tab-content" id="playlists-content">
+                <div class="section">
+                    <h2 class="section-title">Ваши плейлисты</h2>
+                    <div class="playlists-container">
+                        <!-- Кнопка создания нового плейлиста -->
+                        <div class="create-playlist">
+                            <div class="create-playlist-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="create-playlist-text">Создать плейлист</div>
+                        </div>
+                        <!-- Плейлисты будут добавлены сюда через JavaScript -->
+                    </div>
+                    <div class="empty-state" id="playlists-empty">У вас пока нет плейлистов</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Экран детального просмотра плейлиста -->
+        <div class="content playlist-detail-screen hidden" id="playlistDetailScreen">
+            <div class="playlist-header">
+                <div class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h1 class="playlist-detail-title">Название плейлиста</h1>
+                <div class="playlist-header-buttons">
+                    <button class="playlist-edit-button" title="Редактировать плейлист">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="playlist-delete-button" title="Удалить плейлист">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="playlist-info-container">
+                <div class="playlist-detail-cover">
+                    <div class="playlist-cover-image">
+                        <!-- Обложка плейлиста -->
+                    </div>
+                </div>
+                <div class="playlist-detail-info">
+                    <div class="playlist-detail-count">0 треков</div>
+                    <div class="playlist-detail-actions">
+                        <button class="playlist-play-button btn btn-primary d-flex align-items-center justify-content-center gap-2">
+                            <div id="mic-animation" class="mic-icon"></div> Воспроизвести все
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Треки</h2>
+                <div class="playlist-tracks-container">
+                    <!-- Треки плейлиста будут добавлены сюда через JavaScript -->
+                </div>
+                <div class="empty-state" id="playlist-tracks-empty">В этом плейлисте нет треков</div>
+            </div>
+        </div>
+        
+        <!-- Экран профиля -->
+        <div class="content profile-screen hidden" id="profileScreen">
+            <h1>Профиль</h1>
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <div style="width: 100px; height: 100px; background-color: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="font-size: 40px;"></i>
+                    </div>
+                </div>
+                <h2 class="profile-name">Пользователь</h2>
+            </div>
+        </div>
+        
+        <!-- Мини-плеер -->
+        <div class="mini-player">
+            <div class="mini-player-progress">
+                <div class="mini-progress-bar"></div>
+            </div>
+            <div class="mini-player-content">
+                <div class="mini-cover">T1</div>
+                <div class="mini-info">
+                    <div class="mini-title">Название трека</div>
+                    <div class="mini-artist">Исполнитель</div>
+                </div>
+                <div class="mini-play-pause">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Нижняя навигация -->
+        <div class="bottom-nav">
+            <div class="nav-item nav-home active">  
+                <img src="icons8-musical-note-48.png" class="home-icon-filled" alt="Главная (активна)">
+                <img src="icons8-musical-note-50.png" class="home-icon-outline" alt="Главная">
+            </div>
+            <div class="nav-item nav-search">
+                <img src="icons8-search-48.png" class="search-icon-filled" alt="Поиск (активн)">
+                <img src="icons8-search-50.png" class="search-icon-outline" alt="Поиск">
+            </div>
+            <div class="nav-item nav-library">
+                <img src="icons8-sheet-music-48.png" class="library-icon-filled" alt="Библиотека (активна)">
+                <img src="icons8-sheet-music-50.png" class="library-icon-outline" alt="Библиотека">
+            </div>
+            <div class="nav-item nav-profile">
+                <img src="icons8-account-48.png" class="profile-icon-filled" alt="Профиль (активн)">
+                <img src="icons8-account-50.png" class="profile-icon-outline" alt="Профиль">
+            </div>  
+        </div>
+    </div>
+    
+    <!-- Полноэкранный плеер -->
+    <div class="fullscreen-player">
+        <div class="player-header">
+            <div class="close-button">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="player-header-title">Сейчас играет</div>
+            <div style="width: 40px;"></div> <!-- Для выравнивания -->
+        </div>
+        
+        <div class="cover-art">
+            <div>
+                <img src="" alt="Обложка трека" class="player-cover-img">
+            </div>
+        </div>
+        
+        <div class="track-info">
+            <h2 class="track-title"></h2>
+            <h3 class="track-artist"></h3>
+        </div>
+        
+        <div class="player-controls-container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                    <div class="progress-handle"></div>
+                </div>
+                <div class="time-display">
+                    <div class="current-time">0:00</div>
+                    <div class="total-time">0:00</div>
+                </div>
+            </div>
+            
+            <div class="player-controls">
+                <div class="control-button shuffle-button">
+                    <i class="fas fa-random"></i>
+                </div>
+                <div class="control-button prev-button">
+                    <i class="fas fa-step-backward"></i>
+                </div>
+                <div class="control-button play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="control-button next-button">
+                    <i class="fas fa-step-forward"></i>
+                </div>
+                <div class="control-button repeat-button">
+                    <i class="fas fa-redo"></i>
+                </div>
+            </div>
+            
+            <div class="extra-controls">
+                <div class="control-button small like-button">
+                    <i class="far fa-heart"></i>
+                </div>
+                <div class="control-button small">
+                    <i class="fas fa-list"></i>
+                </div>
+                <div class="control-button small share-button">
+                    <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="control-button small">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Подключаем API Jamendo до основного скрипта -->
+    <script src="soundcloud-api.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Модальное окно для создания плейлиста -->
+    <div class="modal fade" id="createPlaylistModal" tabindex="-1" aria-labelledby="createPlaylistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="createPlaylistModalLabel">Создать новый плейлист</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="playlist-name" class="form-label">Название плейлиста</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary" id="playlist-name" placeholder="Мой плейлист">
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light btn-cancel" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary btn-create">Создать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для изменения названия плейлиста -->
+    <div class="modal fade" id="renamePlaylistModal" tabindex="-1" aria-labelledby="renamePlaylistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="renamePlaylistModalLabel">Изменить название плейлиста</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="rename-playlist-name" class="form-label">Название плейлиста</label>
+                        <input type="text" class="form-control bg-dark text-white border-secondary" id="rename-playlist-name" placeholder="Мой плейлист">
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light btn-cancel" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary btn-create">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления трека в плейлист -->
+    <div class="modal fade" id="addToPlaylistModal" tabindex="-1" aria-labelledby="addToPlaylistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="addToPlaylistModalLabel">Добавить в плейлист</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="playlists-list mb-3">
+                        <!-- Список плейлистов будет добавлен сюда через JavaScript -->
+                    </div>
+                    <div class="alert alert-secondary playlist-empty-modal">У вас пока нет плейлистов</div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light btn-cancel" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary create-new-playlist">Создать новый плейлист</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контекстное меню для треков -->
+    <div class="track-context-menu" id="trackContextMenu">
+        <div class="list-group list-group-flush bg-dark">
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action bg-dark text-white add-to-liked">
+                <i class="fas fa-heart me-2"></i>
+                <span>Добавить в любимые</span>
+            </a>
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action bg-dark text-white remove-from-liked hidden">
+                <i class="fas fa-heart-broken me-2"></i>
+                <span>Удалить из любимых</span>
+            </a>
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action bg-dark text-white add-to-playlist">
+                <i class="fas fa-plus me-2"></i>
+                <span>Добавить в плейлист</span>
+            </a>
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action bg-dark text-white share-track">
+                <i class="fas fa-share-alt me-2"></i>
+                <span>Поделиться</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+    function initMicAnimation() {
+        const micContainer = document.getElementById('mic-animation');
+        
+        if (typeof lottie !== 'undefined' && micContainer) {
+            // Добавим класс загрузки
+            micContainer.classList.add('loading');
+            
+            // Загружаем JSON файл с анимацией
+            fetch('mic_animation.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Ошибка HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(animationData => {
+                    // Убираем класс загрузки
+                    micContainer.classList.remove('loading');
+                    
+                    // Загружаем анимацию с полученными данными
+                    const micAnimation = lottie.loadAnimation({
+                        container: micContainer,
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        animationData: animationData,
+                        rendererSettings: {
+                            progressiveLoad: true,
+                            preserveAspectRatio: 'xMidYMid meet'
+                        }
+                    });
+                    
+                    return micAnimation;
+                })
+                .catch(error => {
+                    console.error('Ошибка при загрузке анимации микрофона:', error);
+                    micContainer.classList.remove('loading');
+                    // Используем иконку микрофона как запасной вариант
+                    micContainer.innerHTML = '<i class="fas fa-microphone"></i>';
+                    micContainer.classList.add('fallback-icon');
+                });
+        } else if (micContainer) {
+            // Запасной вариант, если lottie не загружен
+            micContainer.innerHTML = '<i class="fas fa-microphone"></i>';
+            micContainer.classList.add('fallback-icon');
+        }
+    }
+    
+    // Вызываем функцию инициализации после загрузки DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        initMicAnimation();
+    });
+    </script>
+</body>
+</html> 
